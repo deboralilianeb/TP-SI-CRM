@@ -22,6 +22,7 @@ a.links{
 /* content que contem os formulários */
 .content{
   width: 500px;
+  min-height: 560px;
   margin: 0px auto;
   position: relative;   
 }
