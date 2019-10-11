@@ -219,10 +219,10 @@ input:not([type="checkbox"]){
 
 /*estilo do botão submit */
 input[type="submit"]{
-  width: 20%!important;
+  width: 15%!important;
   cursor: pointer;  
   background: #3d9db3;
-  padding: 8px 5px;
+  padding: 5px 3px;
   color: #fff;
   font-size: 20px;  
   border: 1px solid #fff;   
