@@ -17,7 +17,7 @@ a.links{
 
 /*Criamos a classe ( .content ) que vai envolver nosso conteúdo, ou seja, nossos formulários.*/
 .content{
-  width: 500px;
+  /* width: 500px; */
   min-height: 560px;    
   margin: 0px auto;
   position: relative;   
@@ -27,7 +27,7 @@ a.links{
 h1{
   font-size: 48px;
   color: #066a75;
-  padding: 2px 0 10px 0;
+  padding: 10px 0;
   font-family: Arial,sans-serif;
   font-weight: bold;
   text-align: center;
@@ -80,7 +80,7 @@ input {
  
 /*estilo dos input,  menos o checkbox */
 input:not([type="checkbox"]){
-  width: 95%;
+  width: 98%;
   margin-top: 4px;
   padding: 10px;    
   border: 1px solid #b2b2b2;
@@ -97,7 +97,7 @@ input:not([type="checkbox"]){
  
 /*estilo do botão submit */
 input[type="submit"]{
-  width: 30%!important;
+  width: 10%!important;
   cursor: pointer;  
   background: rgb(61, 157, 179);
   padding: 8px 5px;
