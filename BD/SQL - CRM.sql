@@ -19,7 +19,7 @@ values ('Paulo Borges', 'paulo', 'paulobmatos17@gmail.com', md5('paulo'), 'ADMIN
 
 insert into usuario
 (nome, login, email, senha, tipo)
-values ('Débora Liliane', 'debora', 'deboraliliane81@gmail.com', md5('debora'), 'ADMIN');
+values ('Debora Liliane', 'debora', 'deboraliliane81@gmail.com', md5('debora'), 'ADMIN');
 
 insert into usuario
 (nome, login, email, senha, tipo)
