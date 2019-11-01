@@ -1,0 +1,70 @@
+<?php
+# obtendo nosso arquivo de configuracões
+require_once 'webservice_init.php';
+
+# verificando se o método de envio é mesmo  POST.
+if( $_SERVER['REQUEST_METHOD'] !== "POST" )
+    __output_header__( false, "Método de requisição não aceito.", null );
+
+# Lembre-se que os dados são recebidos via POST
+# obtenha e processe aqui os dados através do $_POST
+
+# obtendo os dados $_POST com o vita
+$login =  isset($_POST["login"]) ? addslashes(trim($_POST["login"])) : FALSE;
+$senha = isset($_POST["senha"]) ? md5(trim($_POST["senha"])) : FALSE;
+
+$conn = mysqli_connect($_config['dbhost'], $_config['dbuser'], $_config['dbpass'], $_config['dbname']);
+
+if(!$login || !$senha) 
+{ 
+    __output_header__( FALSE, "Login ou senha não fornecido", null ); 
+    exit; 
+}
+
+$SQL = "SELECT * 
+FROM usuarios
+WHERE login = '{$login}'"; 
+
+$result_id = mysqli_query($conn, $SQL) or die("Erro no banco de dados!"); 
+$total = mysqli_num_rows($result_id);
+ 
+// Caso o usuário tenha digitado um login válido o número de linhas será 1.. 
+if($total) 
+{ 
+    // Obtém os dados do usuário, para poder verificar a senha e passar os demais dados para a sessão 
+    $dados = array();
+    while( $row_usuarios = mysqli_fetch_array($result_id)) {  
+        $dados["nome"] = $row_usuarios["nome"];
+        $dados["login"] = $row_usuarios["login"];
+        $dados["email"] = $row_usuarios["email"];
+        $dados["tipo"] = $row_usuarios["tipo"];
+        $dados["senha"] = $row_usuarios["senha"];
+    }
+ 
+    // Agora verifica a senha 
+    if(!strcmp($senha, $dados["senha"])) 
+    { 
+        // TUDO OK! Agora, passa os dados para a sessão e redireciona o usuário 
+        if (strcmp($dados['tipo'], "ADMIN")){
+            __output_header__( TRUE, "ADMIN", $dados ); 
+        }
+        else{
+            __output_header__( TRUE, "CLIENT", $dados );
+        }
+        exit; 
+    } 
+    // Senha inválida 
+    else
+    { 
+        __output_header__( FALSE, "Senha Inválida", $dados ); 
+    exit; 
+    } 
+} 
+    // Login inválido 
+else
+{ 
+    __output_header__( FALSE, "Login Inválido", $dados );
+    exit; 
+} 
+
+?>
