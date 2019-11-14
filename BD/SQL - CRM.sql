@@ -1,28 +1,34 @@
+-- Criação do Base de Dados
 create database crm;
 
-create table Usuario (
+-- Criação da Tabela
+create table Usuarios (
 	nome VARCHAR(50) NOT NULL,
     login VARCHAR(25) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     senha VARCHAR(50) NOT NULL,
-    tipo ENUM('ADMIN', 'CLIENTE') NOT NULL
+    tipo VARCHAR(10) NOT NULL
 );
 
-alter table Usuario
+-- Definição de Constraints
+alter table Usuarios
 add constraint pk_login primary key (login);
 
--- Inserção de admins --
+alter table Usuarios
+add constraint accepted_types check (tipo = 'Client' or tipo = 'Admin');
 
-insert into usuario
+-- Inserção no Banco
+insert into usuarios
 (nome, login, email, senha, tipo)
-values ('Paulo Borges', 'paulo', 'paulobmatos17@gmail.com', md5('paulo'), 'ADMIN');
+values ('Paulo Borges', 'paulo', 'paulobmatos17@gmail.com', md5('paulo'), 'Admin');
 
-insert into usuario
+insert into usuarios
 (nome, login, email, senha, tipo)
-values ('Debora Liliane', 'debora', 'deboraliliane81@gmail.com', md5('debora'), 'ADMIN');
+values ('Debora Liliane', 'debora', 'deboraliliane81@gmail.com', md5('debora'), 'Admin');
 
-insert into usuario
+insert into usuarios
 (nome, login, email, senha, tipo)
-values ('David Jansen', 'david', 'davidwalterjansen@gmail.com', md5('david'), 'ADMIN');
+values ('David Jansen', 'david', 'davidwalterjansen@gmail.com2', md5('david'), 'Admin');
 
-select * from usuario;
+-- Visualizar tuplas completas
+select * from usuarios;
