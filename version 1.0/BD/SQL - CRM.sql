@@ -20,15 +20,15 @@ add constraint accepted_types check (tipo = 'Client' or tipo = 'Admin');
 -- Inserção no Banco
 insert into usuarios
 (nome, login, email, senha, tipo)
-values ('Paulo Borges', 'paulo', 'paulobmatos17@gmail.com', md5('paulo'), 'Admin');
+values ('Paulo Borges', 'paulo', 'paulo.com', md5('paulo'), 'Admin');
 
 insert into usuarios
 (nome, login, email, senha, tipo)
-values ('Debora Liliane', 'debora', 'deboraliliane81@gmail.com', md5('debora'), 'Admin');
+values ('Debora Liliane', 'debora', 'debora@gmail.com', md5('debora'), 'Admin');
 
 insert into usuarios
 (nome, login, email, senha, tipo)
-values ('David Jansen', 'david', 'davidwalterjansen@gmail.com2', md5('david'), 'Admin');
+values ('David Jansen', 'david', 'david@gmail.com', md5('david'), 'Admin');
 
 
 -- Visualizar tuplas completas
