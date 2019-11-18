@@ -1,13 +1,13 @@
 <?php
-# obtendo nosso arquivo de configuracões
+# obtendo nosso arquivo de configuracÃµes
 require_once 'service-config.php';
-# obtendo arquivo de conexão
+# obtendo arquivo de conexÃ£o
 include("../connection.php");
 include("checkToken.php");
 
-# verificando se o método de envio é mesmo  GET.
+# verificando se o mÃ©todo de envio Ã© mesmo  GET.
 if( $_SERVER['REQUEST_METHOD'] !== "GET" )
-    __output_header__( false, "Método de request nao aceito.", null );
+    __output_header__( false, "Metodo de request nao aceito.", null );
 
 # verificar parametros
 if( !isset($_GET["login"]) or !isset($_GET["senha"]) or !isset($_GET["token"]))
@@ -15,9 +15,7 @@ if( !isset($_GET["login"]) or !isset($_GET["senha"]) or !isset($_GET["token"]))
 
 #---------------CONSULTAR TOKEN-----------------
 #-----------------------------------------------
-echo "teste";
 if( !checkToken($_GET["token"]) ){
-    echo "tese";
     __output_header__( false, "Token Invalido", null );
     exit;
 }
@@ -40,10 +38,10 @@ WHERE login = '{$login}' and estado = TRUE";
 $result_id = pg_query($conn, $SQL) or die("Erro no banco de dados!"); 
 $total = pg_num_rows($result_id);
  
-// Caso o usuário tenha digitado um login válido o número de linhas será 1.. 
+// Caso o usuÃ¡rio tenha digitado um login vÃ¡lido o nÃºmero de linhas serÃ¡ 1.. 
 if($total) 
 { 
-    // Obtém os dados do usuário, para poder verificar a senha e passar os demais dados para a sessão 
+    // ObtÃ©m os dados do usuÃ¡rio, para poder verificar a senha e passar os demais dados para a sessÃ£o 
     $dados = array();
     while( $row_usuarios = pg_fetch_array($result_id)) {  
         $dados["nome"] = utf8_encode($row_usuarios["nome"]);
@@ -56,7 +54,7 @@ if($total)
     // Agora verifica a senha 
     if(!strcmp($senha, $dados["senha"])) 
     { 
-        // TUDO OK! Agora, passa os dados para a sessão e redireciona o usuário 
+        // TUDO OK! Agora, passa os dados para a sessÃ£o e redireciona o usuÃ¡rio 
         if (strcmp($dados['tipo'], "ADMIN")){
             __output_header__( TRUE, "ADMIN", $dados ); 
         }
@@ -65,14 +63,14 @@ if($total)
         }
         exit; 
     } 
-    // Senha inválida 
+    // Senha invÃ¡lida 
     else
     { 
         __output_header__( FALSE, "invalid password", null );
         exit;
     } 
 } 
-// Login inválido 
+// Login invÃ¡lido 
 else
 { 
     __output_header__( FALSE, "invalid login", null );
