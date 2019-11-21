@@ -17,19 +17,19 @@
 			<h1 class="text-center text-uppercase">CRM</h1>
 		</div>
 	</div>
-	
+
 	<div class="row">
 		<div id="cuadro2" class="col-sm-12 col-md-12 col-lg-12">
 			<form class="form-horizontal" action="" method="POST">
 				<div class="form-group">
-					<h3 class="col-sm-offset-2 col-sm-8 text-center">					
+					<h3 class="col-sm-offset-2 col-sm-8 text-center">
 					Editar Usuario</h3>
 				</div>
 				<input type="hidden" id="idusuario" name="idusuario" value="0">
 				<input type="hidden" id="option" name="option" value="salvar">
 				<div class="form-group">
 					<label for="nome" class="col-sm-2 control-label">Nome</label>
-					<div class="col-sm-8"><input id="nome" name="nome" type="text" class="form-control"  autofocus></div>				
+					<div class="col-sm-8"><input id="nome" name="nome" type="text" class="form-control"  autofocus></div>
 				</div>
 				<div class="form-group">
 					<label for="login" class="col-sm-2 control-label">Login</label>
@@ -50,7 +50,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8">
-						<input id="" type="submit" class="btn btn-primary" value="Salvar">
+						<input id="btn_salvar" type="submit" class="btn btn-primary" value="Salvar">
 						<input id="btn_listar" type="button" class="btn btn-primary" value="Listar">
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 			<!--<div class="col-sm-offset-2 col-sm-8">
 				<p class="message"></p>
 			</div>-->
-			
+
 		</div>
 	</div>
 	<div class="row">
@@ -66,20 +66,20 @@
 			<div class="col-sm-offset-2 col-sm-8">
 				<h3 class="text-center"> <small class="message"></small></h3>
 			</div>
-			<div class="table-responsive col-sm-12">		
+			<div class="table-responsive col-sm-12">
 				<table id="dt_user" class="table table-bordered table-hover" cellspacing="0" width="100%">
 					<thead>
-						<tr>								
+						<tr>
 							<th>Nome</th>
 							<th>Login</th>
 							<th>Email</th>
 							<th>Tipo</th>
-							<th></th>											
+							<th></th>
 						</tr>
-					</thead>					
+					</thead>
 				</table>
-			</div>			
-		</div>		
+			</div>
+		</div>
 	</div>
 	<div>
 		<form id="frmExcluirUsuario" action="" method="POST">
@@ -93,7 +93,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title" id="modalExcluirLabel">Excluir Usuario</h4>
 						</div>
-						<div class="modal-body">							
+						<div class="modal-body">
 							Deseja realmente excluir esse usuario?<strong data-name=""></strong>
 						</div>
 						<div class="modal-footer">
@@ -106,12 +106,12 @@
 			<!-- Modal -->
 		</form>
 	</div>
-	
+
 	<script src="js/jquery-1.12.3.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
 	<script src="js/dataTables.bootstrap.js"></script>
-	<!--botones DataTables-->	
+	<!--botones DataTables-->
 	<script src="js/dataTables.buttons.min.js"></script>
 	<script src="js/buttons.bootstrap.min.js"></script>
 	<!--Libreria para exportar Excel-->
@@ -127,6 +127,8 @@
 			listar();
 			salvar();
 			excluir();
+			unBlockButton();
+			blockButton();
 		} );
 
 		$("btn_listar").on("Click", function(){
@@ -146,6 +148,7 @@
 					show_messagem(json_info);
 					clean_fields();
 					listar();
+					blockButton();
 				});
 			});
 		}
@@ -177,12 +180,12 @@
 				text = "<strong>ERROR!</strong> ".concat(json_info.extra);
 				color = "#C9302C";
 			}
-			
+
 			$(".message").html(text).css({"color" : color});
 			$(".message").fadeOut(5000, function(){
 				$(this).html("");
 				$(this).fadeIn(3000);
-			});			
+			});
 		}
 
 		var clean_fields = function(){
@@ -195,8 +198,8 @@
 		}
 
 		var listar = function() {
-			var table = $('#dt_user').DataTable({		
-					"destroy" : true,		
+			var table = $('#dt_user').DataTable({
+					"destroy" : true,
 					"ajax": {
 						"url": "listar.php",
 						"method": "POST",
@@ -234,6 +237,7 @@
 					login = $("#login").val(data.login),
 					email = $("#email").val(data.email),
 					tipo = $("#tipo").val(data.tipo)
+					unBlockButton();
 			});
 		}
 
@@ -242,6 +246,14 @@
 				var data = table.row( $(this).parents("tr") ).data();
 				var idusuario = $("#frmExcluirUsuario #idusuario").val(data.id);
 			});
+		}
+
+		var blockButton = function () {
+		  document.getElementById("btn_salvar").disabled = true;
+		}
+
+		var unBlockButton = function() {
+		  document.getElementById("btn_salvar").disabled = false;
 		}
 
 		var idioma_pt_br = {
