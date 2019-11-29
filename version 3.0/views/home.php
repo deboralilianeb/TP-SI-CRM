@@ -60,7 +60,6 @@
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-8">
 						<input id="btn_salvar" type="submit" class="btn btn-primary" value="Salvar">
-						<input id="btn_listar" type="button" class="btn btn-primary" value="Listar">
 					</div>
 				</div>
 			</form>
@@ -138,11 +137,9 @@
 			excluir();
 			unBlockButton();
 			blockButton();
+			unBlockInputs();
+			blockInputs();
 		} );
-
-		$("btn_listar").on("Click", function(){
-			listar();
-		});
 
 		var salvar = function(){
 			$("form").on("submit", function(e){
@@ -158,6 +155,7 @@
 					clean_fields();
 					listar();
 					blockButton();
+					blockInputs();
 				});
 			});
 		}
@@ -247,6 +245,7 @@
 					email = $("#email").val(data.email),
 					tipo = $("#tipo").val(data.tipo)
 					unBlockButton();
+					unBlockInputs();
 			});
 		}
 
@@ -263,6 +262,20 @@
 
 		var unBlockButton = function() {
 		  document.getElementById("btn_salvar").disabled = false;
+		}
+
+		var blockInputs= function () {
+		  document.getElementById("nome").disabled = true;
+			document.getElementById("login").disabled = true;
+			document.getElementById("email").disabled = true;
+			document.getElementById("tipo").disabled = true;
+		}
+
+		var unBlockInputs = function() {
+			document.getElementById("nome").disabled = false;
+			document.getElementById("login").disabled = false;
+			document.getElementById("email").disabled = false;
+			document.getElementById("tipo").disabled = false;
 		}
 
 		var idioma_pt_br = {

@@ -6,14 +6,16 @@ include("../connection.php");
 include("checkToken.php");
 
 # verificando se o método de envio é mesmo  GET.
-if( $_SERVER['REQUEST_METHOD'] !== "GET" )
+if( $_SERVER['REQUEST_METHOD'] !== "GET" ){
     __output_header__( false, "Metodo de request nao aceito.", null );
+    exit();
+}
 
 # verificar parametros
-if( !isset($_GET["login"]) or !isset($_GET["senha"]) or !isset($_GET["token"]))
+if( !isset($_GET["login"]) or !isset($_GET["senha"]) or !isset($_GET["token"])){
     __output_header__( false, "ERROR: Requer formato login=''&senha=''&token=''", null );
     exit();
-
+}
 #---------------CONSULTAR TOKEN-----------------
 #-----------------------------------------------
 if( !checkToken($_GET["token"]) ){
